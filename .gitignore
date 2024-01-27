@@ -24,6 +24,6 @@ go.work
 templates/*.go
 css/output.css
 
-tmp/*
+tmp/
 tmp/main
 tmp/build-errors.log
