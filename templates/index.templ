@@ -1,5 +1,7 @@
 package templates
 
+import "github.com/andreabertanzon/todo-htmx/templates/common"
+
 templ Index() {
 	<html>
 		<head>
@@ -7,7 +9,10 @@ templ Index() {
 			<link href="/css/output.css" rel="stylesheet" type="text/css"/>
 		</head>
 		<body>
-			@Hello("Andrea")
+			<div class="h-screen w-screen flex flex-col justify-center items-center">
+				@Hello("Andrea")
+				@common.Button("Hi")
+			</div>
 		</body>
 	</html>
 }
