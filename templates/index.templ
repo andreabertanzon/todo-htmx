@@ -1,7 +1,5 @@
 package templates
 
-import "github.com/andreabertanzon/todo-htmx/templates/common"
-
 templ Index() {
 	<html>
 		<head>
@@ -11,8 +9,15 @@ templ Index() {
 		<body>
 			<div class="h-screen w-screen flex flex-col justify-center items-center">
 				@Hello("Andrea")
-				@common.Button("Hi")
+				<button
+					hx-get="/todo/add"
+					hx-target="#todo-list"
+					hx-swap="innerHTML"
+					class="bg-slate-400 rounded p-4 hover:bg-slate-600 hover:transition-colors"
+				>Add</button>
+				<div id="todo-list"></div>
 			</div>
+			<script src="https://unpkg.com/htmx.org"></script>
 		</body>
 	</html>
 }
