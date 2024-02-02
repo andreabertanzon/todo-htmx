@@ -1,21 +1,51 @@
 package templates
 
-templ Index() {
+import "github.com/andreabertanzon/todo-htmx/models"
+
+templ Index(todoList []models.Todo) {
 	<html>
 		<head>
 			<title>Go app super</title>
 			<link href="/css/output.css" rel="stylesheet" type="text/css"/>
+			<style>
+				div.htmx-swapping {
+					opacity: 0;
+					transition: opacity 1s ease-out;
+				}
+
+				div.htmx-revealing {
+					opacity: 0;
+					transition: opacity 1s ease-in;
+				}
+			</style>
 		</head>
-		<body>
+		<body class="h-screen">
 			<div class="h-screen w-screen flex flex-col justify-center items-center">
-				@Hello("Andrea")
-				<button
-					hx-get="/todo/add"
-					hx-target="#todo-list"
-					hx-swap="innerHTML"
-					class="bg-slate-400 rounded p-4 hover:bg-slate-600 hover:transition-colors"
-				>Add</button>
-				<div id="todo-list"></div>
+				<div id="action-container" class="flex">
+					<p class="mr-8">Todo List</p>
+					<svg
+						class="cursor-pointer"
+						width="24"
+						height="24"
+						xmlns="http://www.w3.org/2000/svg"
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+						hx-get="/todo/form"
+						hx-target="#todo-content"
+						hx-swap="innerHTML swap:200ms"
+					>
+						<path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7 14h-5v5h-4v-5h-5v-4h5v-5h4v5h5v4z"></path>
+					</svg>
+					// <button
+					// 	hx-get="/todo/form"
+					// 	hx-target="#todo-content"
+					// 	hx-swap="innerHTML"
+					// 	class="bg-slate-400 rounded p-4 hover:bg-slate-600 hover:transition-colors"
+					// >Add</button>
+				</div>
+				<div id="todo-content" class="overflow-auto mt-4 w-full max-w-lg h-auto max-h-[50vh]">
+					@TodoList(todoList)
+				</div>
 			</div>
 			<script src="https://unpkg.com/htmx.org"></script>
 		</body>

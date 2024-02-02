@@ -11,6 +11,8 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
+var todoList []models.Todo = []models.Todo{}
+
 func main() {
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
@@ -19,12 +21,12 @@ func main() {
 	}))
 
 	e.GET("/", func(c echo.Context) error {
-		helloComponent := templates.Index()
+		helloComponent := templates.Index(todoList)
 		helloComponent.Render(context.Background(), c.Response().Writer)
 		return nil
 	})
 
-	e.GET("/todo/add", func(c echo.Context) error {
+	e.GET("/todo/form", func(c echo.Context) error {
 		fmt.Println("GET /todo/add")
 		helloComponent := templates.TodoForm()
 		helloComponent.Render(context.Background(), c.Response().Writer)
@@ -36,7 +38,7 @@ func main() {
 		description := c.FormValue("description")
 		fmt.Println(title, description)
 		todo := models.Todo{Title: title, Description: description}
-		todoList := []models.Todo{todo}
+		todoList = append(todoList, todo)
 		helloComponent := templates.TodoList(todoList)
 		helloComponent.Render(context.Background(), c.Response().Writer)
 		return nil

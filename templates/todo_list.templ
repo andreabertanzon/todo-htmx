@@ -3,12 +3,11 @@ package templates
 import "github.com/andreabertanzon/todo-htmx/models"
 
 templ TodoList(todoList []models.Todo) {
-	<div>
-		<h1>Todo List</h1>
-		<ul>
-			<li>Get milk</li>
-			<li>Get eggs</li>
-			<li>Get bread</li>
-		</ul>
-	</div>
+	for _, todo := range todoList {
+		<div class="mx-8 p-2 mt-4 rounded-lg bg-slate-400 htmx-swapping:opacity-0 transition-opacity duration-700 htmx-added:opacity-100">
+			<p class="text-xl">{ todo.Title }</p>
+			<hr/>
+			<p>{ todo.Description }</p>
+		</div>
+	}
 }
