@@ -20,9 +20,9 @@ templ Index(todoList []models.Todo) {
 			</style>
 		</head>
 		<body class="h-screen">
-			<div class="h-screen w-screen flex flex-col justify-center items-center">
-				<div id="action-container" class="flex">
-					<p class="mr-8">Todo List</p>
+			<div id="main-content" class="h-screen w-screen p-4 flex flex-col justify-center items-center">
+				<div id="action-container" class="flex mt-4 px-8">
+					<p class=" text-xl mr-2">Today</p>
 					<svg
 						class="cursor-pointer"
 						width="24"
@@ -36,14 +36,8 @@ templ Index(todoList []models.Todo) {
 					>
 						<path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7 14h-5v5h-4v-5h-5v-4h5v-5h4v5h5v4z"></path>
 					</svg>
-					// <button
-					// 	hx-get="/todo/form"
-					// 	hx-target="#todo-content"
-					// 	hx-swap="innerHTML"
-					// 	class="bg-slate-400 rounded p-4 hover:bg-slate-600 hover:transition-colors"
-					// >Add</button>
 				</div>
-				<div id="todo-content" class="overflow-auto mt-4 w-full max-w-lg h-auto max-h-[50vh]">
+				<div id="todo-content" class="mb-4 overflow-auto mt-4 w-full max-w-lg h-auto max-h-[50vh]">
 					@TodoList(todoList)
 				</div>
 			</div>

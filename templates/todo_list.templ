@@ -1,13 +1,19 @@
 package templates
 
-import "github.com/andreabertanzon/todo-htmx/models"
+import (
+	"github.com/andreabertanzon/todo-htmx/models"
+)
 
 templ TodoList(todoList []models.Todo) {
 	for _, todo := range todoList {
-		<div class="mx-8 p-2 mt-4 rounded-lg bg-slate-400 htmx-swapping:opacity-0 transition-opacity duration-700 htmx-added:opacity-100">
+		<div id={ todo.Guid } class="flex items-center mx-8 p-2 mt-4 rounded-lg bg-slate-200 htmx-swapping:opacity-0 transition-opacity duration-700 htmx-added:opacity-100">
+			<input
+				type="checkbox"
+				hx-post="/todo/status"
+				hx-vals='{ "guid":{todo.Guid},"completed":{todo.Completed} }'
+				class="mr-2 p-3 rounded-md"
+			/>
 			<p class="text-xl">{ todo.Title }</p>
-			<hr/>
-			<p>{ todo.Description }</p>
 		</div>
 	}
 }

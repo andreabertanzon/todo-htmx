@@ -37,10 +37,23 @@ func main() {
 		title := c.FormValue("title")
 		description := c.FormValue("description")
 		fmt.Println(title, description)
-		todo := models.Todo{Title: title, Description: description}
-		todoList = append(todoList, todo)
+		todo := models.NewTodo(title, description, false)
+		todoList = append(todoList, *todo)
 		helloComponent := templates.TodoList(todoList)
 		helloComponent.Render(context.Background(), c.Response().Writer)
+		return nil
+	})
+
+	e.POST("/todo/status", func(c echo.Context) error {
+		guid := c.FormValue("guid")
+		completed := c.FormValue("completed")
+
+		fmt.Printf("GUID: %s, STATUS: %v \n", guid, completed)
+		for i, todo := range todoList {
+			if todo.Guid == guid {
+				todoList[i].Completed = completed == "true"
+			}
+		}
 		return nil
 	})
 
