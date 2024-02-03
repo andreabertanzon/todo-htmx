@@ -46,12 +46,11 @@ func main() {
 
 	e.POST("/todo/status", func(c echo.Context) error {
 		guid := c.FormValue("guid")
-		completed := c.FormValue("completed")
 
-		fmt.Printf("GUID: %s, STATUS: %v \n", guid, completed)
+		fmt.Printf("GUID: %s", guid)
 		for i, todo := range todoList {
 			if todo.Guid == guid {
-				todoList[i].Completed = completed == "true"
+				todoList[i].Completed = !todo.Completed
 			}
 		}
 		return nil
