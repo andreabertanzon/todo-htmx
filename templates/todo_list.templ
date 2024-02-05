@@ -11,13 +11,17 @@ func setHxVals(guid string) string {
 
 templ TodoList(todoList []models.Todo) {
 	for _, todo := range todoList {
-		<div id={ todo.Guid } class="flex items-center mx-8 p-2 mt-4 rounded-lg bg-slate-200 htmx-swapping:opacity-0 transition-opacity duration-700 htmx-added:opacity-100">
+		<div
+			id={ todo.Guid }
+			class="flex items-center mx-8 p-2 mt-4 rounded-lg bg-slate-200 htmx-swapping:opacity-0 transition-opacity duration-700 htmx-added:opacity-100"
+		>
 			if todo.Completed {
 				<input
 					type="checkbox"
 					hx-post="/todo/status"
 					data-guid="{{ todo.Guid }}"
 					class="mr-2 p-3 rounded-md"
+					checked
 					hx-vals={ setHxVals(todo.Guid) }
 				/>
 			} else {
